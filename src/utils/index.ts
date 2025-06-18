@@ -1,14 +1,16 @@
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-      const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-      };
+export function debounce(
+  func: any, 
+  wait: number
+): (...args: any[]) => void {
+  let timeout: number | undefined;
+  
+  return function executedFunction(...args: any[]): void {
+    const later = (): void => {
       clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      func(...args);
+    };
+    
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
   };
 }
-
-
-export { debounce }

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { User } from '@/models'
 
 export const useUsersStore = defineStore('users-store', () => {
     const users = ref([])
@@ -23,8 +24,8 @@ export const useUsersStore = defineStore('users-store', () => {
           filteredUsers.value = data
         }
 
-      } catch (error) {
-        error.value = error instanceof Error ? error.message : 'Unknown error'
+      } catch (error:any) {
+        error.value = error ? error.message : 'Unknown error'
       } finally {
         loading.value = false
       }
@@ -35,14 +36,14 @@ export const useUsersStore = defineStore('users-store', () => {
 
       if (searchQuery.value) {
         const query = searchQuery.value.toLowerCase();
-        filtered = filtered.filter(user => {
+        filtered = filtered.filter((user: User) => {
           return user.name.toLowerCase().includes(query) ||
                  user.email.toLowerCase().includes(query) ||
                  user.company.name.toLowerCase().includes(query)
         })
       } 
 
-      filtered.sort((a, b) => {
+      filtered.sort((a: User, b: User) => {
         let aValue, bValue;
 
         switch (sortBy.value) {

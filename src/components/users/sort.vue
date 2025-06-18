@@ -4,6 +4,7 @@
     <select id="sort-by" v-model="userStore.sortBy">
         <option value="name">Name</option>
         <option value="email">Email</option>
+        <option value="company">Company</option>
     </select>
   </div>
 </template>
